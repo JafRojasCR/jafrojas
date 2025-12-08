@@ -30,7 +30,28 @@ export const authService = {
   },
 
   isAuthenticated: () => {
-    return !!localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+    
+    try {
+      // Decode token to check expiration (without verifying signature on client)
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const isExpired = payload.exp && payload.exp * 1000 < Date.now();
+      
+      if (isExpired) {
+        // Clear expired token
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        return false;
+      }
+      
+      return true;
+    } catch (error) {
+      // Invalid token format
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      return false;
+    }
   },
 
   getUser: () => {

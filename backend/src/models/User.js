@@ -22,6 +22,9 @@ const userSchema = new mongoose.Schema({
   timestamps: true
 });
 
+// Create compound index for username and email
+userSchema.index({ username: 1, email: 1 });
+
 // Hash password before saving
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
