@@ -6,10 +6,6 @@ function Portfolio() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadProjects();
-  }, []);
-
   const loadProjects = async () => {
     try {
       const data = await projectService.getAllProjects();
@@ -20,6 +16,10 @@ function Portfolio() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    loadProjects();
+  }, []);
 
   if (loading) {
     return <div className="loading">Loading projects...</div>;

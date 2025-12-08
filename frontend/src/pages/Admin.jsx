@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 import { projectService } from '../services/projectService';
 import { socialMediaService } from '../services/socialMediaService';
 import ProjectForm from '../components/ProjectForm';
@@ -18,11 +18,7 @@ function Admin() {
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [showSocialMediaForm, setShowSocialMediaForm] = useState(false);
 
-  useEffect(() => {
-    loadData();
-  }, [activeTab]);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       if (activeTab === 'projects') {
         const data = await projectService.getAllProjects();
@@ -34,7 +30,11 @@ function Admin() {
     } catch (error) {
       console.error('Error loading data:', error);
     }
-  };
+  }, [activeTab]);
+
+  useEffect(() => {
+    loadData();
+  }, [activeTab, loadData]);
 
   const handleLogout = () => {
     logout();

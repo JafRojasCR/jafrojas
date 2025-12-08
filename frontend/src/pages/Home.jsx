@@ -5,10 +5,6 @@ import './Home.css';
 function Home() {
   const [socialMedia, setSocialMedia] = useState([]);
 
-  useEffect(() => {
-    loadSocialMedia();
-  }, []);
-
   const loadSocialMedia = async () => {
     try {
       const data = await socialMediaService.getAllSocialMedia();
@@ -17,6 +13,10 @@ function Home() {
       console.error('Error loading social media:', error);
     }
   };
+
+  useEffect(() => {
+    loadSocialMedia();
+  }, []);
 
   return (
     <div className="home">
