@@ -1,6 +1,19 @@
+const fs = require('fs');
+const path = require('path');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-require('dotenv').config();
+const dotenv = require('dotenv');
+
+const envLocalPath = path.resolve(__dirname, '../.env.local');
+const envFallbackPath = path.resolve(__dirname, '.env');
+
+if (fs.existsSync(envLocalPath)) {
+  dotenv.config({ path: envLocalPath });
+} else if (fs.existsSync(envFallbackPath)) {
+  dotenv.config({ path: envFallbackPath });
+} else {
+  dotenv.config();
+}
 
 const User = require('./src/models/User');
 const Project = require('./src/models/Project');
@@ -91,10 +104,10 @@ async function seedDatabase() {
     console.log(`Created ${sampleSocialMedia.length} social media links`);
 
     console.log('\n✅ Database seeded successfully!');
-    console.log('\nYou can now:');
-    console.log('1. Start the backend: npm run dev');
+    console.log('\nNext steps:');
+    console.log('1. From the project root run: npm run dev');
     console.log('2. Login with username: admin, password: admin123');
-    console.log('3. Access the admin dashboard to manage content');
+    console.log('3. Open http://localhost:5173/admin to manage content');
 
     process.exit(0);
   } catch (error) {

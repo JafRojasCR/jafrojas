@@ -2,6 +2,8 @@
 
 Personal page for Jafet Alonso Rojas Bello, handling portfolios, previews of projects and so much more!
 
+> Unified setup: install and run everything from the repo root with `npm install` then `npm run dev` (backend on 3000, frontend on 5173 via proxy). Keep all env vars in `.env.local` at the repo root. Deploy to Vercel by running `npm run build`; `/api/*` requests are handled via `api/index.js`.
+
 ## Features
 
 - **Landing Page**: Professional landing page with personal information and social media links
@@ -31,24 +33,17 @@ Personal page for Jafet Alonso Rojas Bello, handling portfolios, previews of pro
 
 ```
 jafrojas/
+├── api/               # Vercel serverless entrypoint (wraps Express app)
 ├── backend/           # Node.js + Express backend
-│   ├── src/
-│   │   ├── config/    # Database configuration
-│   │   ├── models/    # Mongoose models
-│   │   ├── controllers/ # Route controllers
-│   │   ├── routes/    # API routes
-│   │   └── middleware/ # Auth middleware
-│   ├── server.js      # Entry point
-│   └── package.json
-│
-└── frontend/          # React + Vite frontend
-    ├── src/
-    │   ├── components/  # Reusable components
-    │   ├── pages/       # Page components
-    │   ├── services/    # API services
-    │   ├── context/     # React context
-    │   └── utils/       # Utility functions
-    └── package.json
+│   ├── app.js         # Shared Express app
+│   ├── server.js      # Local server entry point
+│   └── src/           # Config, models, controllers, routes, middleware
+├── frontend/          # React + Vite frontend
+│   ├── index.html
+│   ├── public/
+│   └── src/           # Components, pages, services, context
+├── .env.local.example # Sample env vars shared by frontend/back
+└── package.json       # Single install + script entry point
 ```
 
 ## Getting Started
@@ -66,31 +61,15 @@ git clone https://github.com/JafRojasCR/jafrojas.git
 cd jafrojas
 ```
 
-2. Install backend dependencies:
+2. Install dependencies (single command):
 ```bash
-cd backend
 npm install
 ```
 
-3. Install frontend dependencies:
+3. Configure environment variables by copying the sample file:
 ```bash
-cd ../frontend
-npm install
-```
-
-4. Configure environment variables:
-
-Backend (.env):
-```
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/jafrojas
-JWT_SECRET=your_secret_key_here
-NODE_ENV=development
-```
-
-Frontend (.env):
-```
-VITE_API_URL=http://localhost:3000/api
+cp .env.local.example .env.local
+# Edit .env.local to match your MongoDB connection + secrets
 ```
 
 ### Running the Application
@@ -100,19 +79,12 @@ VITE_API_URL=http://localhost:3000/api
 mongod
 ```
 
-2. Start the backend server:
+2. Start the full stack (backend + frontend) from the repo root:
 ```bash
-cd backend
 npm run dev
 ```
 
-3. Start the frontend development server:
-```bash
-cd frontend
-npm run dev
-```
-
-4. Access the application:
+3. Access the application:
 - Frontend: http://localhost:5173
 - Backend API: http://localhost:3000/api
 
@@ -156,19 +128,21 @@ curl -X POST http://localhost:3000/api/auth/register \
 
 ## Building for Production
 
-### Backend
+Create an optimized production build (frontend assets + serverless API wiring):
 ```bash
-cd backend
-npm start
-```
-
-### Frontend
-```bash
-cd frontend
 npm run build
 ```
 
-The built files will be in the `frontend/dist` directory.
+The compiled frontend lives in `frontend/dist`. When deploying to Vercel, the default settings work:
+
+- **Build Command**: `npm run build`
+- **Output Directory**: `frontend/dist`
+- **Serverless API**: `/api/index.js` (no extra config needed)
+
+To preview the production build locally:
+```bash
+npm run preview
+```
 
 ## License
 

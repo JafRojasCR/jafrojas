@@ -28,7 +28,7 @@ Download and install from: https://www.mongodb.com/try/download/community
 1. Create a free account at https://www.mongodb.com/cloud/atlas
 2. Create a cluster
 3. Get your connection string
-4. Update `backend/.env` with your connection string:
+4. Update `.env.local` with your connection string (see `.env.local.example`):
 ```
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/jafrojas
 ```
@@ -43,13 +43,19 @@ docker run -d -p 27017:27017 --name mongodb mongo:latest
 
 Once MongoDB is running:
 
-1. Start the backend server:
+1. Install dependencies and create your environment file:
 ```bash
-cd backend
+npm install
+cp .env.local.example .env.local
+# Update .env.local with your secrets (MongoDB URI, JWT secret, etc.)
+```
+
+2. Start the full stack (Express API + Vite frontend):
+```bash
 npm run dev
 ```
 
-2. Register the first admin user:
+3. Register the first admin user:
 ```bash
 curl -X POST http://localhost:3000/api/auth/register \
   -H "Content-Type: application/json" \
@@ -58,12 +64,6 @@ curl -X POST http://localhost:3000/api/auth/register \
     "email": "admin@example.com",
     "password": "admin123"
   }'
-```
-
-3. Start the frontend:
-```bash
-cd frontend
-npm run dev
 ```
 
 4. Open http://localhost:5173 in your browser
