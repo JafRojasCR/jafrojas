@@ -50,8 +50,8 @@ const frontendDistPath = path.resolve(__dirname, '../frontend/dist');
 if (fs.existsSync(frontendDistPath)) {
   app.use(express.static(frontendDistPath));
 
-  app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/api/')) {
+  app.get(/^\/(?!api\b).*/, (req, res, next) => {
+    if (req.path.startsWith('/api')) {
       return next();
     }
 
