@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 import './Navbar.css';
@@ -5,6 +6,11 @@ import './Navbar.css';
 function Navbar() {
   const location = useLocation();
   const { isAuthenticated } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <nav className="navbar">
@@ -12,8 +18,19 @@ function Navbar() {
         <Link to="/" className="navbar-brand">
           Jafet Rojas
         </Link>
-        
-        <div className="navbar-links">
+
+        <button
+          type="button"
+          className="navbar-toggle"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          onClick={() => setMenuOpen((prev) => !prev)}
+        >
+          <span className="navbar-toggle-bar" />
+          <span className="navbar-toggle-bar" />
+          <span className="navbar-toggle-bar" />
+        </button>
+
+        <div className={menuOpen ? 'navbar-links open' : 'navbar-links'}>
           <Link 
             to="/" 
             className={location.pathname === '/' ? 'nav-link active' : 'nav-link'}

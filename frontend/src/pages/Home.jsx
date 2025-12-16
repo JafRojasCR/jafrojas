@@ -24,7 +24,7 @@ function Home() {
       <div className="hero">
         <div className="hero-content">
           <h1>Jafet Alonso Rojas Bello</h1>
-          <p className="subtitle">Full Stack Developer</p>
+          <p className="subtitle">Full Stack Developer / Math Enthusiast</p>
           <p className="description">
             Welcome to my personal portfolio! I'm a passionate programmer with expertise
             in building modern web applications. Explore my projects and feel free to connect.
@@ -42,7 +42,8 @@ function Home() {
           <p>
             I'm a dedicated developer passionate about creating innovative solutions
             and building meaningful applications. With experience in modern web technologies,
-            I specialize in full-stack development using React, Node.js, and more.
+            I specialize in full-stack development using React, Node.js. I have a strong foundation in math and 
+            problem solving skills, having finished Calculus I and Cisco CCNA with ease.
           </p>
         </div>
       </section>
