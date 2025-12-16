@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { socialMediaService } from '../services/socialMediaService';
 import './Home.css';
 
@@ -29,7 +30,7 @@ function Home() {
             in building modern web applications. Explore my projects and feel free to connect.
           </p>
           <div className="cta-buttons">
-            <a href="/portfolio" className="btn btn-primary">View Portfolio</a>
+            <Link to="/portfolio" className="btn btn-primary">View Portfolio</Link>
             <a href="#about" className="btn btn-secondary">Learn More</a>
           </div>
         </div>

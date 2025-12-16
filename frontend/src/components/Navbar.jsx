@@ -26,6 +26,24 @@ function Navbar() {
           >
             Portfolio
           </Link>
+          <Link 
+            to="/bio" 
+            className={location.pathname === '/bio' ? 'nav-link active' : 'nav-link'}
+          >
+            Bio
+          </Link>
+          <Link 
+            to="/certificates" 
+            className={location.pathname === '/certificates' ? 'nav-link active' : 'nav-link'}
+          >
+            Certificates
+          </Link>
+          <Link 
+            to="/contact" 
+            className={location.pathname === '/contact' ? 'nav-link active' : 'nav-link'}
+          >
+            Contact
+          </Link>
           {isAuthenticated ? (
             <Link 
               to="/admin" 

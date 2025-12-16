@@ -8,6 +8,10 @@ const { apiLimiter } = require('./src/middleware/rateLimiter');
 const authRoutes = require('./src/routes/authRoutes');
 const projectRoutes = require('./src/routes/projectRoutes');
 const socialMediaRoutes = require('./src/routes/socialMediaRoutes');
+const bioRoutes = require('./src/routes/bioRoutes');
+const certificateRoutes = require('./src/routes/certificateRoutes');
+const contactRoutes = require('./src/routes/contactRoutes');
+const adminRoutes = require('./src/routes/adminRoutes');
 
 const app = express();
 
@@ -27,8 +31,46 @@ connectDB().catch(() => {
   // Errors are already logged inside connectDB; this prevents unhandled rejections.
 });
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://jafrojas.vercel.app',
+  'https://jafrojas.com',
+  'https://www.jafrojas.com'
+];
+
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true;
+  if (allowedOrigins.includes(origin)) return true;
+
+  try {
+    const { hostname } = new URL(origin);
+    if (hostname.endsWith('.pages.dev')) {
+      return true;
+    }
+  } catch (error) {
+    // Ignore invalid origins; fall through to disallow
+  }
+
+  return false;
+};
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (isAllowedOrigin(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -39,6 +81,10 @@ app.use('/api/', apiLimiter);
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/social-media', socialMediaRoutes);
+app.use('/api/bio', bioRoutes);
+app.use('/api/certificates', certificateRoutes);
+app.use('/api/contact', contactRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -61,6 +107,10 @@ if (fs.existsSync(frontendDistPath)) {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
+  if (err?.message === 'Not allowed by CORS') {
+    return res.status(403).json({ error: 'Origin not allowed' });
+  }
+
   console.error(err.stack);
   res.status(500).json({ error: 'Something went wrong!' });
 });

@@ -1,0 +1,64 @@
+.bio {
+  padding: 2rem 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.bio-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.bio-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.bio-image {
+  align-self: center;
+  max-width: 320px;
+  width: 100%;
+}
+
+.bio-image img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.bio-text {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+.bio-text p + p {
+  margin-top: 1rem;
+}
+
+.page-loading,
+.page-error {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.bio.empty {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+@media (min-width: 768px) {
+  .bio-content {
+    flex-direction: row;
+  }
+
+  .bio-image {
+    flex: 0 0 320px;
+  }
+
+  .bio-text {
+    flex: 1;
+  }
+}

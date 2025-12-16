@@ -4,6 +4,9 @@ import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Portfolio from './pages/Portfolio';
+import Bio from './pages/Bio';
+import Certificates from './pages/Certificates';
+import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Admin from './pages/Admin';
 import './App.css';
@@ -18,6 +21,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/bio" element={<Bio />} />
+              <Route path="/certificates" element={<Certificates />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/login" element={<Login />} />
               <Route 
                 path="/admin" 

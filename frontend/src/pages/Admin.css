@@ -84,6 +84,29 @@
   color: #333;
 }
 
+.section-helper {
+  margin-top: 0.5rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+  max-width: 640px;
+}
+
+.section-message {
+  background: #ffffff;
+  border: 1px solid #dbeafe;
+  color: #1e40af;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.section-message.error {
+  border-color: #fecaca;
+  color: #b91c1c;
+  background: #fef2f2;
+}
+
 .btn-add {
   padding: 0.75rem 1.5rem;
   background: #667eea;
@@ -115,9 +138,28 @@
   color: #333;
 }
 
+.item-subtitle {
+  margin: 0 0 0.5rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+
 .item-card p {
   margin: 0 0 1rem;
   color: #666;
+}
+
+.item-meta {
+  margin-bottom: 1rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.item-note {
+  margin: 1rem 0 0;
+  color: #6b7280;
+  font-size: 0.85rem;
+  font-style: italic;
 }
 
 .item-actions {
@@ -152,6 +194,54 @@
   background: #c82333;
 }
 
+.btn-delete:disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.empty-state {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px dashed #d1d5db;
+  text-align: center;
+  color: #6b7280;
+}
+
+.bio-preview {
+  display: flex;
+  gap: 1.5rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+.bio-preview-image {
+  flex: 0 0 220px;
+}
+
+.bio-preview-image img {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+}
+
+.bio-preview-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+.bio-preview-text p {
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .admin-header {
     flex-direction: column;
@@ -162,5 +252,17 @@
   .section-header {
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .bio-preview {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .bio-preview-image,
+  .bio-preview-image img {
+    width: 180px;
+    height: 180px;
   }
 }
